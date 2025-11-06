@@ -98,6 +98,7 @@
 
     <div>
       <button id="submit-btn" class="btn btn-primary">Responder</button>
+      <button id="reset-btn" class="btn btn-secondary ms-2">Tentar novamente</button>
       <div id="info" class="alert mt-3 d-none"></div>
     </div>
   </div>
@@ -157,6 +158,23 @@
       }
 
       document.getElementById("submit-btn").disabled = true;
+    });
+
+    document.getElementById("reset-btn").addEventListener("click", function() {
+      for (let questao in respostascorretas) {
+        const opcoes = document.getElementsByName(questao);
+        for (let opcao of opcoes) {
+          opcao.checked = false;
+          opcao.disabled = false;
+          opcao.parentElement.classList.remove("correct", "incorrect");
+        }
+      }
+
+      const info = document.getElementById("info");
+      info.classList.add("d-none");
+      info.textContent = "";
+
+      document.getElementById("submit-btn").disabled = false;
     });
   </script>
 
