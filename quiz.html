@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz do galo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+  	body {
+  	  background-color: #fafafa
+  	}
+
+  	.container {
+  	  max-width: 600px;
+  	  margin-top: 40px;
+  	  background-color: white;
+  	  border: 2px solid #ccc;
+  	  border-radius: 8px;
+  	  padding: 20px;
+  	}
+
+  	.question {
+  	  font-weight: bold;
+  	  margin-top: 15px;
+  	}
+
+  	.option {
+  	  margin-bottom: 5px;
+  	  padding: 5px;
+  	  border-radius: 5px;
+  	}
+
+  	.correct {
+  	  background-color: #d4edda;
+  	}
+
+    .incorrect {
+      background-color: #f8d7da;
+    }
+
+  	#info {
+  	  margin-top: 15px;
+  	  font-weight: bold;
+  	  text-align: center;
+  	}
+
+  	button {
+  	  margin-top: 20px;
+  	}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center mb-4">Quiz do galoow</h2>
+
+      <div id="quiz-conntainer">
+      <div>
+      	<p class="question">1. A sigla "CRB" significa o que?</p>
+      	<div class="option"><input type="radio" name="q1" value="a">clube do remo brasileiro</div>
+      	<div class="option"><input type="radio" name="q1" value="b">clube de regatianos brasil</div>
+      	<div class="option"><input type="radio" name="q1" value="c">clube do regatas brasileiros</div>
+      	<div class="option"><input type="radio" name="q1" value="d">clube de regatas brasil</div>
+      </div>
+
+      <div>
+      	<p class="question">2. Ele eh connhecido por jogar qual divisao a mais de 30 anos?</p>
+      	<div class="option"><input type="radio" name="q2" value="a"> Serie A</div>
+      	<div class="option"><input type="radio" name="q2" value="b"> Serie B</div>
+      	<div class="option"><input type="radio" name="q2" value="c"> Serie C</div>
+      	<div class="option"><input type="radio" name="q2" value="d"> Serie D</div>
+      </div>
+
+      <div>
+      	<p class="question">3. Quantos titulos alagoanos o CRB tem?</p>
+      	<div class="option"><input type="radio" name="q3" value="a">36</div>
+      	<div class="option"><input type="radio" name="q3" value="b">34</div>
+      	<div class="option"><input type="radio" name="q3" value="c">35</div>
+      	<div class="option"><input type="radio" name="q3" value="d">33</div>
+      </div>
+    </div>
+
+    <div>
+      <button id="submit-btn" class="btn btn-primary">responder</button>
+      <div id="info" class="alert mt-3 d-none"></div>
+    </div>
+  </div>
+
+  <script>
+  	let respostascorretas = {
+  	  q1: "d",
+  	  q2: "b",
+  	  q3: "c"
+  	}
+
+    document.getElementById("submit-btn").addEventListener("click", function() {
+      let pontuacao = 0;
+      let total = Object.keys(respostascorretas).length;
+
+      for (let questao in respostascorretas) {
+        const opcoes = document.getElementsByName(questao);
+        let correta = respostascorretas[questao];
+        let selecionada = null;
+      
+
+      for (let opcao of opcoes) {
+        const divoption = opcao.parentElement;
+        divoption.classList.remove("correct", "incorrect")
+        if (opcao.checked) {
+          selecionada = opcao.value;
+        }
+      }
+
+      for (let opcao of opcoes) {
+        const divoption = opcao.parentElement;
+        if (opcao.value === correta) {
+        divoption.classList.add("correct");
+        }
+        if (opcao.checked && opcao.value !== correta) {
+          divoption.classList.add("incorrect");
+        }
+        opcao.disabled = true;
+
+        
+      }
+      
+    if (selecionada === correta) pontuacao++;
+
+    }
+      const info = document.getElementById("info");
+      info.classList.remove("d-none", "alert-success", "alert-warning", "alert-danger");
+
+      if (pontuacao === total) {
+        info.classList.add("alert-success");
+        info.textContent = `Parabens! voce acertou todas (${pontuacao}/${total})!`;
+      } else if (pontuacao >= total / 2) {
+        info.classList.add("alert-warning");
+        info.textContent = `Voce acertou ${pontuacao} de ${total}. Quase!`
+      } else {
+      	info.classList.add("alert-danger")
+      	info.textContent = `Voce acertou ${pontuacao} de ${total}, bora querer`
+      }
+
+      document.getElementById("submit-btn").disabled = true;
+    })
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
