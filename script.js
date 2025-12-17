@@ -2,14 +2,14 @@ document.addEventListener("DOMContentLoaded", function() {
   const quizContainer = document.getElementById("quiz-container");
   const submitBtn = document.getElementById("submit-btn");
   let respondeu = false
-  // Array de objetos de perguntas e respostas
+
   const perguntas = [
     {
       pergunta: "Qual é a capital do Brasil?",
       opcoes: ["Brasília", "Rio de Janeiro", "São Paulo", "Belo Horizonte"],
       respostaCorreta: "Brasília"
     },
-    // Adicione mais perguntas conforme necessário
+o
     {
       pergunta: "How many characters have in the story?",
       opcoes: [1, 2, 3, 4],
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
     respostaCorreta : 2}
   ];
 
-  // exibir as perguntas e opções na interface
+
   function mostrarPerguntas() {
     let html = "";
     perguntas.forEach(function(p, index) {
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     quizContainer.innerHTML = html;
 
-    // opções de resposta para cada pergunta
+
     perguntas.forEach((p, index) => {
       const opcoesContainer = document.getElementById(`opcoes${index}`);
       p.opcoes.forEach((opcao) => {
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // verificar respostas e calcular pontuação
+
   function verificarRespostas() {
     let pontuacao = 0;
     if (!respondeu) {
@@ -79,16 +79,16 @@ document.addEventListener("DOMContentLoaded", function() {
           const respostaUsuario = opcaoSelecionada.value;
           if (respostaUsuario == p.respostaCorreta) {
             pontuacao++;
-            // Adiciona alerta de sucesso ao card da pergunta correta
+
             mostrarAlerta(index, 'success', 'Resposta correta!');
           } else {
-            // Adiciona alerta de erro ao card da pergunta incorreta
+
             mostrarAlerta(index, 'danger', 'Resposta incorreta!');
           }
 
         }
       });
-      // Adiciona alerta final com a pontuação
+
       mostrarAlerta(-1, 'info', `Sua pontuação: ${pontuacao}/${perguntas.length}`);
     } else {
       mostrarAlerta(-1, 'info', `Sua pontuação: ${pontuacao}/${perguntas.length}<br>Usuário já respondeu.`);
@@ -96,9 +96,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   }
 
-  // Evento de clique no botão de envio
+
   submitBtn.addEventListener("click", verificarRespostas);
 
-  // Inicializa a exibição das perguntas
+
   mostrarPerguntas();
 });
